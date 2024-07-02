@@ -28,10 +28,10 @@ export default function SignUp() {
       const userId = response.user.uid; // Get the user ID
       const timestamp = new Date(); // Get the current timestamp
   
-      createUser(name, username, email); // Pass both name and username
-      updateProfile(response.user, { displayName: name });
-      localStorage.setItem("username", name);
-      localStorage.setItem("userEmail", email);
+      await createUser(name, username, email); // Await the createUser function
+      await updateProfile(response.user, { displayName: name });
+      localStorage.setItem("app_username", name); // Use a namespaced key
+      localStorage.setItem("app_userEmail", email); // Use a namespaced key
   
       // Add the user data to Firestore
       await setDoc(doc(database, "users", userId), {
@@ -52,7 +52,7 @@ export default function SignUp() {
 
   return (
     <div className="login-container">
-      <img className="Ig-logo" loading="lazy" src={IGLogo} />
+      <img className="Ig-logo" loading="lazy" src={IGLogo} alt="Instagram Logo" />
       <Input
         placeholder="Enter your Name"
         name="name"
